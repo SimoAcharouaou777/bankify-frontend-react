@@ -1,10 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import axios from "axios";
 
-// Mock Data
-const initialUsers = [
-    { id: 1, username: 'john_doe', firstName: 'John', lastName: 'Doe', enabled: true, roles: ['USER'] },
-    { id: 2, username: 'jane_smith', firstName: 'Jane', lastName: 'Smith', enabled: true, roles: ['EMPLOYEE'] },
-];
 
 function AdminDashboard() {
     const [users, setUsers] = useState([]);
@@ -13,38 +9,68 @@ function AdminDashboard() {
         firstName: '',
         lastName: '',
         password: '',
-        role: 'USER',
+        roles: ['USER'],
     });
     const [statusUpdate, setStatusUpdate] = useState({
         accountId: '',
         status: '',
     });
 
+    const apiUrl = "http://localhost:8080/api/admin";
+
     useEffect(() => {
-        // Set initial mock users, replace this with an API call later
-        setUsers(initialUsers);
+        const fetchUsers = async () => {
+            try{
+                const response = await axios.get('http://localhost:8080/api/admin/users',{
+                    withCredentials: true
+                });
+                console.log(response.data);
+                setUsers(response.data);
+            }catch (error){
+                console.error("Error fetching users", error);
+            }
+        };
+        fetchUsers();
     }, []);
 
-    // Handlers
-    const handleCreateUser = () => {
-        const user = {
-            ...newUser,
-            id: users.length + 1, // Mocking the ID generation
-            enabled: true,
-        };
-        setUsers([...users, user]);
-        setNewUser({ username: '', firstName: '', lastName: '', password: '', role: 'USER' });
+
+    // create new user
+    const handleCreateUser = async () => {
+        try {
+            const response = await axios.post(`http://localhost:8080/api/admin/users`, newUser, {
+                withCredentials: true
+            });
+            setUsers([...users, response.data]);
+            setNewUser({username: '', firstName: '', lastName: '', password: '', roles: ['USER'] });
+        } catch (error) {
+            console.error("Error creating user", error);
+        }
     };
 
-    const handleDeleteUser = (id) => {
-        const filteredUsers = users.filter((user) => user.id !== id);
-        setUsers(filteredUsers);
+    const handleDeleteUser = async (id) => {
+       try{
+           await axios.delete(`${apiUrl}/users/${id}`,{
+               withCredentials: true
+           });
+           setUsers(users.filter((user) => user.id !== id));
+       }catch (error){
+           console.error("Error deleting user" , error);
+       }
     };
 
-    const handleUpdateStatus = () => {
-        // Mock updating account status
-        alert(`Account ID: ${statusUpdate.accountId}, Status: ${statusUpdate.status}`);
-        setStatusUpdate({ accountId: '', status: '' });
+    const handleUpdateStatus = async () => {
+        try{
+            await axios.put(`${apiUrl}/accounts/${statusUpdate.accountId}/status`, null, {
+                params: {
+                    status: statusUpdate.status
+                },
+                withCredentials: true
+            });
+            setStatusUpdate({ accountId: '', status: '' });
+            alert('Account status updated successfully');
+        }catch (error){
+            console.error("Error updating account status", error);
+        }
     };
 
     return (
@@ -70,7 +96,7 @@ function AdminDashboard() {
                             <td className="py-2 px-4">{user.username}</td>
                             <td className="py-2 px-4">{user.firstName}</td>
                             <td className="py-2 px-4">{user.lastName}</td>
-                            <td className="py-2 px-4">{user.roles.join(', ')}</td>
+                            <td className="py-2 px-4">{user.roles.map((role) => role.name).join(', ')}</td>
                             <td className="py-2 px-4">
                                 <button
                                     onClick={() => handleDeleteUser(user.id)}
@@ -128,8 +154,8 @@ function AdminDashboard() {
                     <div>
                         <label className="block text-sm mb-1">Role</label>
                         <select
-                            value={newUser.role}
-                            onChange={(e) => setNewUser({ ...newUser, role: e.target.value })}
+                            value={newUser.roles[0]}
+                            onChange={(e) => setNewUser({ ...newUser, roles: [e.target.value] })}
                             className="w-full px-4 py-2 border rounded-md"
                         >
                             <option value="USER">USER</option>
