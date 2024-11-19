@@ -1,0 +1,60 @@
+.create-user-page {
+    background: #121212;
+    padding: 2rem;
+    min-height: 100vh;
+    color: #d1d1d1;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.bank-title {
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    text-shadow: 0 0 4px #000, 0 0 8px #333;
+    color: #b8b8b8;
+}
+
+.bank-input {
+    background-color: #292929;
+    color: #d1d1d1;
+    border: 1px solid #333;
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.bank-input:focus {
+    outline: none;
+    background-color: #1e1e1e;
+    box-shadow: 0 0 6px #3b82f6; /* Blue focus ring for inputs */
+}
+
+.bank-select {
+    background-color: #292929;
+    color: #d1d1d1;
+    border: 1px solid #333;
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.bank-select:focus {
+    outline: none;
+    background-color: #1e1e1e;
+    box-shadow: 0 0 6px #3b82f6; /* Blue focus ring for select */
+}
+
+.bank-button {
+    background-color: #444;
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.bank-button:hover {
+    background-color: #5a5a5a;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+}
+
+button, input, select {
+    border: none;
+    cursor: pointer;
+}
+
+button:focus, input:focus, select:focus {
+    outline: none;
+    box-shadow: 0 0 6px #575757;
+}

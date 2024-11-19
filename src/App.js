@@ -1,11 +1,11 @@
 import './App.css';
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import AdminDashboard from './pages/AdminDashboard';
-import EmployeeDashboard from './pages/EmployeeDashboard';
-import UserDashboard from './pages/UserDashboard';
-import Login from './pages/Login'
-import Register from './pages/Register';
+import AdminDashboard from './pages/Admin/AdminDashboard';
+import EmployeeDashboard from './pages/Employee/EmployeeDashboard';
+import UserDashboard from './pages/User/UserDashboard';
+import Login from './pages/Auth/Login'
+import Register from './pages/Auth/Register';
 
 function App() {
     return (
@@ -15,7 +15,7 @@ function App() {
                     {/* Set the Register page as the default route */}
                     <Route path="/" element={<Register />} />
                     <Route path="/login" element={<Login />} />
-                    <Route path="/admin/dashboard" element={<AdminDashboard />} />
+                    <Route path="/admin/*" element={<AdminDashboard />} />
                     <Route path="/employee/dashboard" element={<EmployeeDashboard />} />
                     <Route path="/user/dashboard" element={<UserDashboard />} />
                 </Routes>

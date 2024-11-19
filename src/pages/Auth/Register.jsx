@@ -60,7 +60,7 @@ function Register(){
                        >{message}</p>
                 )}
                 <p className="text-center text-sm mt-4">
-                    Already have an account? <Link to="/login" className="text-blue-500 hover:underline">Login here</Link>
+                    Already have an account? <Link to="/Login" className="text-blue-500 hover:underline">Login here</Link>
                 </p>
             </div>
         </div>

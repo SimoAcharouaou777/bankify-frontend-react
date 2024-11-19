@@ -1,0 +1,46 @@
+.manage-accounts-page {
+    background: #121212;
+    padding: 2rem;
+    min-height: 100vh;
+    color: #d1d1d1;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.bank-title {
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    text-shadow: 0 0 4px #000, 0 0 8px #333;
+    color: #b8b8b8;
+}
+
+.bg-dark-table {
+    background-color: #1e1e1e;
+}
+
+.bg-dark-header {
+    background-color: #292929;
+}
+
+.border-dark-border {
+    border-color: #333;
+}
+
+.hover\:bg-dark-hover:hover {
+    background-color: #383838;
+}
+
+.bg-dark-input {
+    background-color: #292929;
+    box-shadow: 0 4px 6px rgba(50, 50, 50, 0.6);
+}
+
+button, input, select {
+    transition: background-color 0.3s, box-shadow 0.3s;
+    border: none;
+    cursor: pointer;
+}
+
+button:focus, input:focus, select:focus {
+    outline: none;
+    box-shadow: 0 0 6px #575757;
+}
